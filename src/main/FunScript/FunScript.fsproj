@@ -4,13 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>e0916e67-d3b0-4c3a-ad18-4146882fcedd</ProjectGuid>
+    <ProjectGuid>{E0916E67-D3B0-4C3A-AD18-4146882FCEDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>FunScript</RootNamespace>
     <AssemblyName>FunScript</AssemblyName>
     <Name>FunScript</Name>
-    <ProductVersion>10.0.0</ProductVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
@@ -39,14 +37,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
+    <Reference Include="FSharp.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -111,8 +107,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FunScript.Interop\FunScript.Interop.fsproj">
       <Name>FunScript.Interop</Name>
-      <Project>{1397ecef-2a65-49ce-afa1-b9884671bbb9}</Project>
-      <Private>True</Private>
+      <Project>{1397ECEF-2A65-49CE-AFA1-B9884671BBB9}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

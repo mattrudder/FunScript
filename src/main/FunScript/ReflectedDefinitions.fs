@@ -9,7 +9,7 @@ open Microsoft.FSharp.Reflection
 
 type MissingReflectedDefinitionException(mb: MethodBase) =
     inherit System.Exception(
-        "No replacement for " + mb.Name + ": " +
+        "No replacement for " + mb.Name + " in the type " + mb.DeclaringType.FullName + ": " +
         "either ReflectedDefinition attribute is missing or " +
         "the method is not yet implemented in FunScript.")
 

@@ -1,4 +1,4 @@
-#r @"lib\Fake\FakeLib.dll"
+#r @"./lib/Fake/FakeLib.dll"
 
 open Fake
 open Fake.AssemblyInfoFile

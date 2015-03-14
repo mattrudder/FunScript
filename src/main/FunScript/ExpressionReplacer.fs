@@ -67,6 +67,7 @@ let buildCall (mi:MethodInfo) exprs =
          Some objExpr, argExprs
       | exprs -> None, exprs
 
+   printfn "buildCall %s.%s" mi.DeclaringType.FullName mi.Name
    // NOTE: The following 20 lines have been modified to prevent the "lists had different lengths" exceptions with ParamArray arguments.
    // As a side effect, this allows using ParamArray in modules (not only methods) like in FunScript.Core.String.Format.
    let paramInfos = mi.GetParameters()
@@ -75,10 +76,14 @@ let buildCall (mi:MethodInfo) exprs =
      
    let castArgs =
       let castExpr = fun expr (p: ParameterInfo) ->
+                        printfn "buildCall p: %s" p.ParameterType.FullName
                         let castArg = castMi.MakeGenericMethod p.ParameterType
                         Expr.Call(castArg, [expr])
       match hasParamArray with
-      | false -> paramInfos |> Array.toList |> List.map2 castExpr argExprs
+      | false -> 
+        printfn "paramInfos length: %d" paramInfos.Length
+        printfn "argExprs length: %d" argExprs.Length
+        paramInfos |> Array.toList |> List.map2 castExpr argExprs
       | true -> let normalParamInfos = paramInfos |> Seq.take (paramInfos.Length - 1) |> Seq.toList
                 let normalArgExprs =   argExprs   |> Seq.take (paramInfos.Length - 1) |> Seq.toList
                 let arrayArgExpr  =    argExprs   |> Seq.skip (paramInfos.Length - 1) |> Seq.toList
@@ -86,6 +91,8 @@ let buildCall (mi:MethodInfo) exprs =
                                    | [ Patterns.NewArray _ ] -> List.head arrayArgExpr
                                    | [ Patterns.Var arrayVar ] when arrayVar.Type.IsArray -> List.head arrayArgExpr
                                    | _ -> Expr.NewArray(paramInfos.[paramInfos.Length-1].ParameterType.GetElementType(), arrayArgExpr)
+                printfn "normalParamInfos length: %d" normalParamInfos.Length
+                printfn "normalArgExprs length: %d" normalArgExprs.Length
                 [
                     normalParamInfos |> List.map2 castExpr normalArgExprs
                     [ paramInfos.[paramInfos.Length - 1] |> castExpr arrayArgExpr ]
